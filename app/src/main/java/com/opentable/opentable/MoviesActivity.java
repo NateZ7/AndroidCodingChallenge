@@ -19,6 +19,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         getSupportActionBar().hide();
 
         mPresenter = new MoviesPresenter(this);
+
+        mPresenter.fetchMovies();
     }
     // endregion
 

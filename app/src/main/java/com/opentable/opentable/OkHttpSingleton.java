@@ -9,6 +9,7 @@ public class OkHttpSingleton {
 
     // region Static Members
     private static OkHttpSingleton sInstance;
+    private static String TAG = "OkHttpSingleton";
     // endregion
 
     // region Class Members
@@ -24,6 +25,10 @@ public class OkHttpSingleton {
         mClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
                 .build();
+    }
+
+    private OkHttpClient getClient() {
+        return mClient;
     }
     // endregion
 
@@ -41,9 +46,6 @@ public class OkHttpSingleton {
         return sInstance;
     }
 
-    private OkHttpClient getClient() {
-        return mClient;
-    }
     // endregion
 }
 

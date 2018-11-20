@@ -13,5 +13,10 @@ public interface MoviesContract {
 
     interface IMoviesPresenter {
 
+        /**
+         * Fetching movies as JSON and notifying the UI
+         */
+        void fetchMovies();
+
     }
 }

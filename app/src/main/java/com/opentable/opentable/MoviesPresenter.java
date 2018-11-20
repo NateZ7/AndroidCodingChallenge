@@ -11,5 +11,11 @@ public class MoviesPresenter implements MoviesContract.IMoviesPresenter {
         mMoviesView = IMoviesView;
         mMoviesView.initViews();
     }
+
+    @Override
+    public void fetchMovies() {
+
+    }
+
     // endregion
 }
