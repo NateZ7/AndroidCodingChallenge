@@ -51,20 +51,6 @@ public class ReviewsAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.mTitle = convertView.findViewById(R.id.title);
-            viewHolder.mRating = convertView.findViewById(R.id.rating);
-            viewHolder.mHeadline = convertView.findViewById(R.id.headline);
-            viewHolder.mSummaryShort = convertView.findViewById(R.id.summary_short);
-            viewHolder.mByLine = convertView.findViewById(R.id.by_line);
-            viewHolder.mPublicationDate = convertView.findViewById(R.id.publication_date);
-            viewHolder.mOpeningDate = convertView.findViewById(R.id.opening_date);
-            viewHolder.mUpdatedDate = convertView.findViewById(R.id.date_updated);
-            viewHolder.mCriticsPick = convertView.findViewById(R.id.critics_pick);
-            viewHolder.mMmSrc = convertView.findViewById(R.id.mm_src);
-            viewHolder.mMmHeight = convertView.findViewById(R.id.mm_height);
-            viewHolder.mMmType = convertView.findViewById(R.id.mm_type);
-            viewHolder.mMmWidth = convertView.findViewById(R.id.mm_width);
-            viewHolder.mLinkUrl = convertView.findViewById(R.id.link_url);
-            viewHolder.mLinkType = convertView.findViewById(R.id.link_type);
 
             convertView.setTag(viewHolder);
         } else {
@@ -73,28 +59,7 @@ public class ReviewsAdapter extends BaseAdapter {
 
         Review review = mReviews.get(position);
 
-        // Strings
-        verifyAndSetTextView(review.getTitle(), viewHolder.mTitle, "Title: ");
-        verifyAndSetTextView(review.getHeadline(), viewHolder.mHeadline, "Headline: ");
-        verifyAndSetTextView(review.getSummaryShort(), viewHolder.mSummaryShort, "Summary: ");
-        verifyAndSetTextView(review.getByLine(), viewHolder.mByLine, "By Line: ");
-        verifyAndSetTextView(review.getCriticsPick(), viewHolder.mCriticsPick, "Critics Pick: ");
-        verifyAndSetTextView(review.getMpaaRating(), viewHolder.mRating, "Rating: ");
-
-        // Dates
-        verifyAndSetTextView(Utils.dateToString(review.getOpeningDate(), "yyyy-MM-dd"), viewHolder.mOpeningDate, "Opening Date: ");
-        verifyAndSetTextView(Utils.dateToString(review.getPublicationDate(), "yyyy-MM-dd"), viewHolder.mPublicationDate, "Publication Date: ");
-        verifyAndSetTextView(Utils.dateToString(review.getDateUpdated(), "yyyy-MM-dd"), viewHolder.mUpdatedDate, "Date Updated: ");
-
-        // Multimedia
-        verifyAndSetTextView(review.getReviewMultimediaSrc(), viewHolder.mMmSrc, "Multimedia Source: ");
-        verifyAndSetTextView(review.getReviewMultimediaType(), viewHolder.mMmType, "Multimedia Type: ");
-        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaHeight()), viewHolder.mMmHeight, "Multimedia Height: ");
-        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaWidth()), viewHolder.mMmWidth, "Multimedia Width: ");
-
-        // Link
-        verifyAndSetTextView(review.getReviewLinkType(), viewHolder.mLinkType, "Link Type: ");
-        verifyAndSetTextView(review.getReviewLinkUrl(), viewHolder.mLinkUrl, "Link Url: ");
+        verifyAndSetTextView(review.getTitle(), viewHolder.mTitle, "");
 
         return convertView;
     }
@@ -108,6 +73,38 @@ public class ReviewsAdapter extends BaseAdapter {
             this.mReviews.clear();
             this.mReviews.addAll(reviews);
         }
+    }
+
+    /**
+     * Showing more data of specific review
+     * @param view - view to show the data
+     * @param position - position of the review
+     */
+    public void showReviewFullData(View view, int position) {
+        Review review = mReviews.get(position);
+
+        // Strings
+        verifyAndSetTextView(review.getTitle(), (TextView)view.findViewById(R.id.title), "Title: ");
+        verifyAndSetTextView(review.getHeadline(), (TextView)view.findViewById(R.id.headline), "Headline: ");
+        verifyAndSetTextView(review.getSummaryShort(), (TextView)view.findViewById(R.id.summary_short), "Summary: ");
+        verifyAndSetTextView(review.getByLine(), (TextView)view.findViewById(R.id.by_line), "By Line: ");
+        verifyAndSetTextView(review.getCriticsPick(), (TextView)view.findViewById(R.id.critics_pick), "Critics Pick: ");
+        verifyAndSetTextView(review.getMpaaRating(), (TextView)view.findViewById(R.id.rating), "Rating: ");
+
+        // Dates
+        verifyAndSetTextView(Utils.dateToString(review.getOpeningDate(), "yyyy-MM-dd"), (TextView)view.findViewById(R.id.opening_date), "Opening Date: ");
+        verifyAndSetTextView(Utils.dateToString(review.getPublicationDate(), "yyyy-MM-dd"), (TextView)view.findViewById(R.id.publication_date), "Publication Date: ");
+        verifyAndSetTextView(Utils.dateToString(review.getDateUpdated(), "yyyy-MM-dd"), (TextView)view.findViewById(R.id.date_updated), "Date Updated: ");
+
+        // Multimedia
+        verifyAndSetTextView(review.getReviewMultimediaSrc(), (TextView)view.findViewById(R.id.mm_src), "Multimedia Source: ");
+        verifyAndSetTextView(review.getReviewMultimediaType(), (TextView)view.findViewById(R.id.mm_type), "Multimedia Type: ");
+        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaHeight()), (TextView)view.findViewById(R.id.mm_height), "Multimedia Height: ");
+        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaWidth()), (TextView)view.findViewById(R.id.mm_width), "Multimedia Width: ");
+
+        // Link
+        verifyAndSetTextView(review.getReviewLinkType(), (TextView)view.findViewById(R.id.link_type), "Link Type: ");
+        verifyAndSetTextView(review.getReviewLinkUrl(), (TextView)view.findViewById(R.id.link_url), "Link Url: ");
     }
     // endregion
 
@@ -125,26 +122,12 @@ public class ReviewsAdapter extends BaseAdapter {
         }
 
         textView.setVisibility(View.VISIBLE);
-        textView.setText(prefix + text);
+        textView.setText(prefix == "" ? text + " - Read More..." : prefix + text);
     }
     // endregion
 
     static class ViewHolder {
         TextView mTitle;
-        TextView mRating;
-        TextView mHeadline;
-        TextView mByLine;
-        TextView mSummaryShort;
-        TextView mPublicationDate;
-        TextView mOpeningDate;
-        TextView mUpdatedDate;
-        TextView mCriticsPick;
-        TextView mMmSrc;
-        TextView mMmType;
-        TextView mMmWidth;
-        TextView mMmHeight;
-        TextView mLinkUrl;
-        TextView mLinkType;
     }
 }
 
