@@ -80,8 +80,8 @@ public class ReviewsPresenter implements ReviewsContract.IReviewsPresenter {
             String linkUrl = linkObject.optString("url");
             String mmType = mmObject.optString("type");
             String mmSrc = mmObject.optString("src");
-            int width = mmObject.optInt("width", 0);
-            int height = mmObject.optInt("height", 0);
+            int width = mmObject.optInt("width", -1);
+            int height = mmObject.optInt("height", -1);
 
             Review review = new Review(title, rating, headline, byLine, summaryShort, publicationDate,
                     openingDate, dateUpdated, criticsPick, mmType, mmSrc, width, height, linkType, linkUrl);

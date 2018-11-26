@@ -29,4 +29,13 @@ public class Utils {
 
         return null;
     }
+
+    public static String dateToString(Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
+    }
 }
