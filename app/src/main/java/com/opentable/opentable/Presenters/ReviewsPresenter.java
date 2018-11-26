@@ -85,6 +85,7 @@ public class ReviewsPresenter implements ReviewsContract.IReviewsPresenter {
 
             Review review = new Review(title, rating, headline, byLine, summaryShort, publicationDate,
                     openingDate, dateUpdated, criticsPick, mmType, mmSrc, width, height, linkType, linkUrl);
+
             if (review != null) {
                 mReviews.add(review);
             }

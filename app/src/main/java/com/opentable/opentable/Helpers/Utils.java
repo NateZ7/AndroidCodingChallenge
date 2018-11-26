@@ -30,12 +30,18 @@ public class Utils {
         return null;
     }
 
-    public static String dateToString(Date date) {
+    /**
+     * Converting a date to a string by a specific format
+     * @param date - date to convert
+     * @param format - format to set the conversion
+     * @return String if convert went well, null otherwise
+     */
+    public static String dateToString(Date date, String format) {
         if (date == null) {
             return null;
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
     }
 }

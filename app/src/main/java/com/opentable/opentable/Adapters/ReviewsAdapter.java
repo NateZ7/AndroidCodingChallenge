@@ -1,12 +1,9 @@
 package com.opentable.opentable.Adapters;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opentable.opentable.Contracts.ReviewsContract;
@@ -53,7 +50,21 @@ public class ReviewsAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.reviews_list_view, null);
             viewHolder = new ViewHolder();
 
-            viewHolder.mLayout = convertView.findViewById(R.id.layout);
+            viewHolder.mTitle = convertView.findViewById(R.id.title);
+            viewHolder.mRating = convertView.findViewById(R.id.rating);
+            viewHolder.mHeadline = convertView.findViewById(R.id.headline);
+            viewHolder.mSummaryShort = convertView.findViewById(R.id.summary_short);
+            viewHolder.mByLine = convertView.findViewById(R.id.by_line);
+            viewHolder.mPublicationDate = convertView.findViewById(R.id.publication_date);
+            viewHolder.mOpeningDate = convertView.findViewById(R.id.opening_date);
+            viewHolder.mUpdatedDate = convertView.findViewById(R.id.date_updated);
+            viewHolder.mCriticsPick = convertView.findViewById(R.id.critics_pick);
+            viewHolder.mMmSrc = convertView.findViewById(R.id.mm_src);
+            viewHolder.mMmHeight = convertView.findViewById(R.id.mm_height);
+            viewHolder.mMmType = convertView.findViewById(R.id.mm_type);
+            viewHolder.mMmWidth = convertView.findViewById(R.id.mm_width);
+            viewHolder.mLinkUrl = convertView.findViewById(R.id.link_url);
+            viewHolder.mLinkType = convertView.findViewById(R.id.link_type);
 
             convertView.setTag(viewHolder);
         } else {
@@ -63,53 +74,29 @@ public class ReviewsAdapter extends BaseAdapter {
         Review review = mReviews.get(position);
 
         // Strings
-        verifyAndSetStringText(review.getTitle(), viewHolder, parent.getContext(), "Title: ");
-        verifyAndSetStringText(review.getHeadline(), viewHolder, parent.getContext(), "Headline: ");
-        verifyAndSetStringText(review.getSummaryShort(), viewHolder, parent.getContext(), "Summary: ");
-        verifyAndSetStringText(review.getByLine(), viewHolder, parent.getContext(), "By Line: ");
-        verifyAndSetStringText(review.getCriticsPick(), viewHolder, parent.getContext(), "Critics Pick: ");
-        verifyAndSetStringText(review.getMpaaRating(), viewHolder, parent.getContext(), "Rating: ");
+        verifyAndSetTextView(review.getTitle(), viewHolder.mTitle, "Title: ");
+        verifyAndSetTextView(review.getHeadline(), viewHolder.mHeadline, "Headline: ");
+        verifyAndSetTextView(review.getSummaryShort(), viewHolder.mSummaryShort, "Summary: ");
+        verifyAndSetTextView(review.getByLine(), viewHolder.mByLine, "By Line: ");
+        verifyAndSetTextView(review.getCriticsPick(), viewHolder.mCriticsPick, "Critics Pick: ");
+        verifyAndSetTextView(review.getMpaaRating(), viewHolder.mRating, "Rating: ");
 
         // Dates
-        verifyAndSetStringText(Utils.dateToString(review.getOpeningDate()), viewHolder, parent.getContext(), "Opening Date: ");
-        verifyAndSetStringText(Utils.dateToString(review.getPublicationDate()), viewHolder, parent.getContext(), "Publication Date: ");
-        verifyAndSetStringText(Utils.dateToString(review.getDateUpdated()), viewHolder, parent.getContext(), "Date Updated: ");
+        verifyAndSetTextView(Utils.dateToString(review.getOpeningDate(), "yyyy-MM-dd"), viewHolder.mOpeningDate, "Opening Date: ");
+        verifyAndSetTextView(Utils.dateToString(review.getPublicationDate(), "yyyy-MM-dd"), viewHolder.mPublicationDate, "Publication Date: ");
+        verifyAndSetTextView(Utils.dateToString(review.getDateUpdated(), "yyyy-MM-dd"), viewHolder.mUpdatedDate, "Date Updated: ");
 
         // Multimedia
-        verifyAndSetStringText(review.getReviewMultimediaSrc(), viewHolder, parent.getContext(), "Multimedia Source: ");
-        verifyAndSetStringText(review.getReviewMultimediaType(), viewHolder, parent.getContext(), "Multimedia Type: ");
-        verifyAndSetStringText(Integer.toString(review.getReviewMultimediaHeight()), viewHolder, parent.getContext(), "Multimedia Height: ");
-        verifyAndSetStringText(Integer.toString(review.getReviewMultimediaWidth()), viewHolder, parent.getContext(), "Multimedia Width: ");
+        verifyAndSetTextView(review.getReviewMultimediaSrc(), viewHolder.mMmSrc, "Multimedia Source: ");
+        verifyAndSetTextView(review.getReviewMultimediaType(), viewHolder.mMmType, "Multimedia Type: ");
+        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaHeight()), viewHolder.mMmHeight, "Multimedia Height: ");
+        verifyAndSetTextView(Integer.toString(review.getReviewMultimediaWidth()), viewHolder.mMmWidth, "Multimedia Width: ");
 
         // Link
-        verifyAndSetStringText(review.getReviewLinkType(), viewHolder, parent.getContext(), "Link Type: ");
-        verifyAndSetStringText(review.getReviewLinkUrl(), viewHolder, parent.getContext(), "Link Url: ");
-
+        verifyAndSetTextView(review.getReviewLinkType(), viewHolder.mLinkType, "Link Type: ");
+        verifyAndSetTextView(review.getReviewLinkUrl(), viewHolder.mLinkUrl, "Link Url: ");
 
         return convertView;
-    }
-
-    /**
-     * Verifying content, and if content is valid, adding to the adapter Layout
-     * @param text - text to add
-     * @param holder - viewholder that holds the layout
-     * @param context - context of the view (the parent)
-     */
-    private void verifyAndSetStringText(String text, ViewHolder holder, Context context, String prefix) {
-        if (text == null || text.isEmpty()) {
-            return;
-        }
-
-        TextView textView = new TextView(context);
-        textView.setTextSize(16);
-        textView.setTextColor(Color.BLACK);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(5,10,5,10);
-
-        textView.setLayoutParams(params);
-        holder.mLayout.addView(textView);
-        textView.setText(prefix + text);
     }
 
     /**
@@ -124,8 +111,40 @@ public class ReviewsAdapter extends BaseAdapter {
     }
     // endregion
 
+    // region Private Access
+    /**
+     * Validating text and setting as a textview with a prefix
+     * @param text - text to set
+     * @param textView - textview to be set
+     * @param prefix - prefix to describe the following text
+     */
+    private void verifyAndSetTextView(String text, TextView textView, String prefix) {
+        if (text == null || text.isEmpty()) {
+            textView.setVisibility(View.GONE);
+            return;
+        }
+
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(prefix + text);
+    }
+    // endregion
+
     static class ViewHolder {
-        LinearLayout mLayout;
+        TextView mTitle;
+        TextView mRating;
+        TextView mHeadline;
+        TextView mByLine;
+        TextView mSummaryShort;
+        TextView mPublicationDate;
+        TextView mOpeningDate;
+        TextView mUpdatedDate;
+        TextView mCriticsPick;
+        TextView mMmSrc;
+        TextView mMmType;
+        TextView mMmWidth;
+        TextView mMmHeight;
+        TextView mLinkUrl;
+        TextView mLinkType;
     }
 }
 
