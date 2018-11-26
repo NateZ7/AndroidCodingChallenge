@@ -32,7 +32,6 @@ public class ReviewsPresenter implements ReviewsContract.IReviewsPresenter {
     public ReviewsPresenter(ReviewsContract.IReviewsView IReviewsView) {
         mReviewsView = IReviewsView;
         mReviews = new ArrayList<>();
-        mReviewsView.initViews();
     }
 
     @Override
@@ -52,6 +51,8 @@ public class ReviewsPresenter implements ReviewsContract.IReviewsPresenter {
                     for (int i = 0; i < reviews.length(); i++) {
                         createReview(reviews.getJSONObject(i));
                     }
+
+                    mReviewsView.onGetReviewList(mReviews);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
                     e.printStackTrace();
