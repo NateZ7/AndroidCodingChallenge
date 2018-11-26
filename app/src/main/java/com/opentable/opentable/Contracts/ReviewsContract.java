@@ -15,7 +15,7 @@ public interface ReviewsContract {
          * Displaying a custom toast message
          * @param message - message to toast
          */
-        void makeToast(String message);
+        void onToast(String message);
 
         /**
          * Getting notified to update reviews
@@ -29,12 +29,12 @@ public interface ReviewsContract {
         /**
          * Fetching reviews as JSON and notifying the UI
          */
-        void fetchReviews();
+        void onFetchReviews();
 
         /**
          * Creating a review object resulted from a JSON object
          */
-        void createReview(JSONObject reviewObject);
+        void onCreateReview(JSONObject reviewObject);
     }
 
     interface IReview {

@@ -34,13 +34,14 @@ public class ReviewsActivity extends AppCompatActivity implements ReviewsContrac
         mListView = findViewById(R.id.listview);
         mAdapter = new ReviewsAdapter(mPresenter);
         mListView.setAdapter(mAdapter);
-        mPresenter.fetchReviews();
+
+        mPresenter.onFetchReviews();
     }
     // endregion
 
     // region Public Access
     @Override
-    public void makeToast(String message) {
+    public void onToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
