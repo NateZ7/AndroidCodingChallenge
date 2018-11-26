@@ -1,5 +1,7 @@
 package com.opentable.opentable;
 
+import org.json.JSONObject;
+
 public interface MoviesContract {
 
     interface IMoviesView {
@@ -8,6 +10,12 @@ public interface MoviesContract {
          * Initializing the views
          */
         void initViews();
+
+        /**
+         * Displaying a custom toast message
+         * @param message - message to toast
+         */
+        void makeToast(String message);
 
     }
 
@@ -18,5 +26,9 @@ public interface MoviesContract {
          */
         void fetchMovies();
 
+        /**
+         * Creating a review object resulted from a JSON object
+         */
+        void createReview(JSONObject reviewObject);
     }
 }

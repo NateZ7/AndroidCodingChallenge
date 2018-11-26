@@ -3,6 +3,7 @@ package com.opentable.opentable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesContract.IMoviesView{
 
@@ -28,6 +29,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     @Override
     public void initViews() {
         mListView = findViewById(R.id.listview);
+    }
+
+    @Override
+    public void makeToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     // endregion
 }
