@@ -1,10 +1,10 @@
-package com.opentable.opentable;
+package com.opentable.opentable.Contracts;
 
 import org.json.JSONObject;
 
-public interface MoviesContract {
+public interface ReviewsContract {
 
-    interface IMoviesView {
+    interface IReviewsView {
 
         /**
          * Initializing the views
@@ -19,12 +19,12 @@ public interface MoviesContract {
 
     }
 
-    interface IMoviesPresenter {
+    interface IReviewsPresenter {
 
         /**
-         * Fetching movies as JSON and notifying the UI
+         * Fetching reviews as JSON and notifying the UI
          */
-        void fetchMovies();
+        void fetchReviews();
 
         /**
          * Creating a review object resulted from a JSON object

@@ -1,14 +1,18 @@
-package com.opentable.opentable;
+package com.opentable.opentable.Views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesContract.IMoviesView{
+import com.opentable.opentable.Presenters.ReviewsPresenter;
+import com.opentable.opentable.R;
+import com.opentable.opentable.Contracts.ReviewsContract;
+
+public class ReviewsActivity extends AppCompatActivity implements ReviewsContract.IReviewsView {
 
     // region Class Members
-    private MoviesPresenter mPresenter;
+    private ReviewsPresenter mPresenter;
     private ListView mListView;
     // endregion
 
@@ -16,12 +20,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies);
+        setContentView(R.layout.activity_reviews);
         getSupportActionBar().hide();
 
-        mPresenter = new MoviesPresenter(this);
+        mPresenter = new ReviewsPresenter(this);
 
-        mPresenter.fetchMovies();
+        mPresenter.fetchReviews();
     }
     // endregion
 

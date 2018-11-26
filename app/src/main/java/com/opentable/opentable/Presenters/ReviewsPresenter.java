@@ -1,6 +1,12 @@
-package com.opentable.opentable;
+package com.opentable.opentable.Presenters;
 
 import android.util.Log;
+
+import com.opentable.opentable.BuildConfig;
+import com.opentable.opentable.Network.OkHttpSingleton;
+import com.opentable.opentable.Models.Review;
+import com.opentable.opentable.Contracts.ReviewsContract;
+import com.opentable.opentable.Helpers.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,31 +17,31 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MoviesPresenter implements MoviesContract.IMoviesPresenter {
+public class ReviewsPresenter implements ReviewsContract.IReviewsPresenter {
 
     // region Static Members
-    private static String TAG = "MoviesPresenter";
+    private static String TAG = "ReviewsPresenter";
     // endregion
 
     // region Class Members
     private ArrayList<Review> mReviews;
-    private MoviesContract.IMoviesView mMoviesView;
+    private ReviewsContract.IReviewsView mReviewsView;
     // endregion
 
     // region Public Access
-    public MoviesPresenter(MoviesContract.IMoviesView IMoviesView) {
-        mMoviesView = IMoviesView;
+    public ReviewsPresenter(ReviewsContract.IReviewsView IReviewsView) {
+        mReviewsView = IReviewsView;
         mReviews = new ArrayList<>();
-        mMoviesView.initViews();
+        mReviewsView.initViews();
     }
 
     @Override
-    public void fetchMovies() {
+    public void fetchReviews() {
         OkHttpSingleton.getInstance().getJson(BuildConfig.SERVER_URL, new OkHttpSingleton.IResult() {
             @Override
             public void getResult(String result, boolean isRequestSucceeded) {
                 if (!isRequestSucceeded) {
-                    mMoviesView.makeToast("Could not fetch movie reviews, please try again later");
+                    mReviewsView.makeToast("Could not fetch movie reviews, please try again later");
                     Log.d(TAG, "Movie reviews didn't get fetched");
                     return;
                 }

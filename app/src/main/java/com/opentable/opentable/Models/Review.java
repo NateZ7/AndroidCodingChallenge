@@ -1,4 +1,4 @@
-package com.opentable.opentable;
+package com.opentable.opentable.Models;
 
 import java.util.Date;
 

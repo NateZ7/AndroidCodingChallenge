@@ -1,4 +1,4 @@
-package com.opentable.opentable;
+package com.opentable.opentable.Network;
 
 import android.util.Log;
 
